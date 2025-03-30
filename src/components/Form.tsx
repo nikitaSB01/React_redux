@@ -1,19 +1,19 @@
 // src/components/Form.tsx
 
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
-import { addItem, updateItem } from '../redux/itemsSlice';
-import { cancelEdit } from '../redux/formSlice';
-import { Item } from '../types';
-import { v4 as uuidv4 } from 'uuid';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { addItem, updateItem } from "../redux/itemsSlice";
+import { cancelEdit } from "../redux/formSlice";
+import { Item } from "../types";
+import { v4 as uuidv4 } from "uuid";
 
 const Form: React.FC = () => {
   const dispatch = useDispatch();
   const currentItem = useSelector((state: RootState) => state.form.currentItem);
 
-  const [title, setTitle] = useState('');
-  const [price, setPrice] = useState('');
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
 
   // При редактировании заполняем форму данными
   useEffect(() => {
@@ -21,8 +21,8 @@ const Form: React.FC = () => {
       setTitle(currentItem.title);
       setPrice(currentItem.price.toString());
     } else {
-      setTitle('');
-      setPrice('');
+      setTitle("");
+      setPrice("");
     }
   }, [currentItem]);
 
@@ -45,18 +45,18 @@ const Form: React.FC = () => {
       dispatch(addItem(item));
     }
 
-    setTitle('');
-    setPrice('');
+    setTitle("");
+    setPrice("");
   };
 
   const handleCancel = () => {
     dispatch(cancelEdit());
-    setTitle('');
-    setPrice('');
+    setTitle("");
+    setPrice("");
   };
 
   return (
-    <div style={{ marginBottom: '20px' }}>
+    <div style={{ marginBottom: "20px" }}>
       <input
         type="text"
         placeholder="Название"
@@ -69,8 +69,14 @@ const Form: React.FC = () => {
         value={price}
         onChange={(e) => setPrice(e.target.value)}
       />
-      <button onClick={handleSave}>Save</button>
-      {currentItem && <button onClick={handleCancel}>Cancel</button>}
+      <button className="save" onClick={handleSave}>
+        Save
+      </button>
+      {currentItem && (
+        <button className="cancel" onClick={handleCancel}>
+          Cancel
+        </button>
+      )}
     </div>
   );
 };

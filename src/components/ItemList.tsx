@@ -22,11 +22,17 @@ const ItemList: React.FC = () => {
     <ul>
       {items.map((item) => (
         <li key={item.id}>
-          <b>
+          <span className="item-title">
             {item.title} {item.price}
-          </b>{" "}
-          <button onClick={() => dispatch(startEdit(item))}>✎</button>
-          <button onClick={() => handleDelete(item.id)}>✕</button>
+          </span>
+          <div style={{ display: "flex", gap: "6px" }}>
+            <button className="edit" onClick={() => dispatch(startEdit(item))}>
+              ✎
+            </button>
+            <button className="delete" onClick={() => handleDelete(item.id)}>
+              ✕
+            </button>
+          </div>
         </li>
       ))}
     </ul>
